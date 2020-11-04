@@ -1,9 +1,9 @@
 package com.tp_cesi.banconet.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Client {
@@ -14,6 +14,29 @@ public class Client {
   private String nom;
 
   private String prenom;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "compte_courant_id", referencedColumnName = "id")
+  private CompteCourant compteCourant;
+
+  @OneToMany(mappedBy = "client")
+  private List<CompteEpargne> compteEpargnes;
+
+  public List<CompteEpargne> getCompteEpargnes() {
+    return compteEpargnes;
+  }
+
+  public void setCompteEpargnes(List<CompteEpargne> compteEpargnes) {
+    this.compteEpargnes = compteEpargnes;
+  }
+
+  public CompteCourant getCompteCourant() {
+    return compteCourant;
+  }
+
+  public void setCompteCourant(CompteCourant compteCourant) {
+    this.compteCourant = compteCourant;
+  }
 
   public Integer getIdentifiant() {
     return identifiant;

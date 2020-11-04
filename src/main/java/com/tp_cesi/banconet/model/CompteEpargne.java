@@ -1,9 +1,8 @@
 package com.tp_cesi.banconet.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class CompteEpargne {
@@ -16,6 +15,18 @@ public class CompteEpargne {
     private Double solde;
 
     private Double tauxInteret;
+
+    @ManyToOne
+    @JsonIgnore
+    private Client client;
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     public Integer getNumero() {
         return numero;
